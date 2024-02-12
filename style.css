@@ -1,7 +1,7 @@
 /*Pertenece a todo el docuemento*/
 body {
-    font-family: Arial, sans-serif;
-    background-color: #D6EAF8;
+    font-family: Tahoma, sans-serif;
+    background-color: #33FFF3;
     margin: 0;
     padding: 0;
 }
@@ -11,9 +11,9 @@ h1 {
     text-align: center;
 }
 
-/*Estilos para el primer formulario*/
+/*Estilos para el primer formulario*/ 
 form {
-    background-color: #AED6F1 ;
+    background-color: #33F4FF ;
     padding: 20px;
     margin: 20px auto;
     max-width: 600px;
@@ -70,10 +70,10 @@ th {
 /*Estilos para el boton*/
 button {
     padding: 10px 20px;
-    background-color: #2471A3;
+    background-color: #33FFDD;
     color: white;
     border: none;
-    border-radius: 3px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
