@@ -43,6 +43,15 @@ function agregarProducto() {
     mostrarProductos();
 }
 
+//funcion para eliminar productos
+function eliminarProducto(id) {
+    // Filtrar el array de productos para obtener los productos que no coinciden con el ID proporcionado
+    productos = productos.filter(producto => producto.id !== id);
+
+    // Mostrar los productos actualizados en la tabla
+    mostrarProductos();
+}
+
 function mostrarProductos() {
     let tabla = document.getElementById("tablaProductos");
 
@@ -54,6 +63,7 @@ function mostrarProductos() {
                     <th>Categoría</th>
                     <th>Precio</th>
                     <th>Imagen</th>
+                    <th>Acciones</th>
                 </tr>
             `;
 
@@ -66,6 +76,7 @@ function mostrarProductos() {
                         <td>${producto.categoria}</td>
                         <td>${producto.precio}</td>
                         <td><img src="${URL.createObjectURL(producto.imagen)}" alt="Imagen de ${producto.nombre}" style="max-width: 100px;"></td>
+                        <td><button onclick="eliminarProducto(${producto.id})">Eliminar</button></td>
                     </tr>
                 `;
         tabla.innerHTML += fila;
