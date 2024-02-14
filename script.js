@@ -67,7 +67,39 @@ function editarProducto(id) {
 }
 
 function editarProductoExistente(id) {
-    
+    // Buscar el índice del producto correspondiente en el array
+    let indice = productos.findIndex(producto => producto.id === id);
+
+    // Actualizar la información del producto en el array
+    productos[indice].nombre = document.getElementById("nombre").value;
+    productos[indice].descripcion = document.getElementById("descripcion").value;
+    productos[indice].categoria = document.getElementById("categoria").value;
+    productos[indice].precio = parseFloat(document.getElementById("precio").value);
+
+    // Verificar si se ha seleccionado una nueva imagen
+    let nuevaImagenInput = document.getElementById("nueva-imagen");
+    if (nuevaImagenInput.files.length > 0) {
+        productos[indice].imagen = nuevaImagenInput.files[0];
+    }
+
+    // Mostrar los productos actualizados en la tabla
+    mostrarProductos();
+
+    // Limpiar los campos del formulario
+    document.getElementById("nombre").value = "";
+    document.getElementById("descripcion").value = "";
+    document.getElementById("categoria").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("nueva-imagen").value = ""; // Limpiar el campo de selección de imagen
+
+    // Cambiar el texto del botón de "Editar Producto" a "Agregar Producto"
+    let botonAgregarEditar = document.getElementById("agregar-editar-btn");
+    botonAgregarEditar.innerText = "Agregar Producto";
+
+    // Cambiar el evento del botón de "Editar Producto" para que llame a la función agregarProducto()
+    botonAgregarEditar.onclick = function() {
+        agregarProducto();
+    };
 }
 
 //funcion para eliminar productos
