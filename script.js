@@ -1,3 +1,4 @@
+//Clases
 class Imagen {
     constructor(id, url, producto) {
         this.id = id;
@@ -25,9 +26,11 @@ class Categoria {
     }
 }
 
+//Creación del arreglo
 let productos = [];
 
 function agregarProducto() {
+    //Declaración de los campos
     let nombre = document.getElementById("nombre").value;
     let descripcion = document.getElementById("descripcion").value;
     let categoria = document.getElementById("categoria").value;
@@ -38,33 +41,42 @@ function agregarProducto() {
     let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagenURL);
     productos.push(producto);
      
-    // Mostrar el producto en la tabla
+    // Mostrar el producto en la tabla y limpiar los campos
     mostrarProductos();
+    limpiarCampos();
 }
+
+function limpiarCampos() {
+    document.getElementById("nombre").value = "";
+    document.getElementById("descripcion").value = "";
+    document.getElementById("categoria").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("imagen").value = "";
+}
+
 function editarProducto(id) {
-    // Buscar el producto correspondiente en el array
+    // Buscar el producto correspondiente en el id del arreglo
     let producto = productos.find(producto => producto.id === id);
 
-    // Llenar los campos del formulario con la información del producto
+    // Llenar los campos del formulario con la información del producto seleccionado
     document.getElementById("nombre").value = producto.nombre;
     document.getElementById("descripcion").value = producto.descripcion;
     document.getElementById("categoria").value = producto.categoria;
     document.getElementById("precio").value = producto.precio;
-    // La imagen no se puede llenar por motivos de seguridad
-    // Limpiar el campo de selección de imagen
-    document.getElementById("imagen").value = "";
+    document.getElementById("imagen").value = producto.imagen;
 
     // Cambiar el texto del botón de "Agregar Producto" a "Editar Producto"
     let botonAgregarEditar = document.getElementById("agregar-editar-btn");
     botonAgregarEditar.innerText = "Editar Producto";
 
-    // Agregar un evento al botón para que llame a la función editarProducto()
+    //Botón que llama a la función editarProducto()
     botonAgregarEditar.onclick = function() {
         editarProductoExistente(id);
     };
 }
 
 function editarProductoExistente(id) {
+    // Buscar el producto correspondiente en el id del arreglo
     let indice = productos.findIndex(producto => producto.id === id);
 
     // Actualizar la información del producto en el array
@@ -73,14 +85,10 @@ function editarProductoExistente(id) {
     productos[indice].categoria = document.getElementById("categoria").value;
     productos[indice].precio = parseFloat(document.getElementById("precio").value);
     productos[indice].imagen = document.getElementById("imagen").value;
+    
+    // Mostrar el producto en la tabla y limpiar los campos
     mostrarProductos();
-
-    // Limpiar los campos del formulario
-    document.getElementById("nombre").value = "";
-    document.getElementById("descripcion").value = "";
-    document.getElementById("categoria").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("imagen").value = "";
+    limpiarCampos();
 
     // Cambiar el texto del botón de "Editar Producto" a "Agregar Producto"
     let botonAgregarEditar = document.getElementById("agregar-editar-btn");
@@ -92,19 +100,17 @@ function editarProductoExistente(id) {
     };
 }
 
-//funcion para eliminar productos
 function eliminarProducto(id) {
-    // Filtrar el array de productos para obtener los productos que no coinciden con el ID proporcionado
+    // Filtrar el array de productos para obtener los productos que no coinciden con el ID proporcionado y actualiza la tabla
     productos = productos.filter(producto => producto.id !== id);
-
-    // Mostrar los productos actualizados en la tabla
     mostrarProductos();
 }
 
 function mostrarProductos() {
+    //Declaración de la tabla
     let tabla = document.getElementById("tablaProductos");
 
-    // Limpiar la tabla
+    //Estructura de la tabla
     tabla.innerHTML = `
                 <tr>
                     <th>Nombre</th>
@@ -116,7 +122,7 @@ function mostrarProductos() {
                 </tr>
             `;
 
-    // Iterar sobre los productos y agregarlos a la tabla
+    //Itera sobre los productos y agregarlos a la tabla
     productos.forEach(producto => {
         let fila = `
                     <tr>
@@ -129,6 +135,7 @@ function mostrarProductos() {
                         <button onclick="eliminarProducto(${producto.id})">Eliminar</button></center></td>
                     </tr>
                 `;
-        tabla.innerHTML += fila;
+        //Se van agregando productos y aumenta la cantidad de filas de la tabla
+        tabla.innerHTML += fila; 
     });
 }
