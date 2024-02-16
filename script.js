@@ -32,12 +32,10 @@ function agregarProducto() {
     let descripcion = document.getElementById("descripcion").value;
     let categoria = document.getElementById("categoria").value;
     let precio = parseFloat(document.getElementById("precio").value);
-    // Obtener la imagen del nuevo campo de selección de imagen
-    let imagenInput = document.getElementById("nueva-imagen");
-    let imagen = imagenInput.files[0];
+    let imagenURL = document.getElementById("imagen").value;
 
     // Crear objeto Producto y agregarlo al array de productos
-    let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagen);
+    let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagenURL);
     productos.push(producto);
      
     // Mostrar el producto en la tabla
@@ -54,7 +52,7 @@ function editarProducto(id) {
     document.getElementById("precio").value = producto.precio;
     // La imagen no se puede llenar por motivos de seguridad
     // Limpiar el campo de selección de imagen
-    document.getElementById("nueva-imagen").value = "";
+    document.getElementById("imagen").value = "";
 
     // Cambiar el texto del botón de "Agregar Producto" a "Editar Producto"
     let botonAgregarEditar = document.getElementById("agregar-editar-btn");
@@ -67,7 +65,6 @@ function editarProducto(id) {
 }
 
 function editarProductoExistente(id) {
-    // Buscar el índice del producto correspondiente en el array
     let indice = productos.findIndex(producto => producto.id === id);
 
     // Actualizar la información del producto en el array
@@ -75,14 +72,7 @@ function editarProductoExistente(id) {
     productos[indice].descripcion = document.getElementById("descripcion").value;
     productos[indice].categoria = document.getElementById("categoria").value;
     productos[indice].precio = parseFloat(document.getElementById("precio").value);
-
-    // Verificar si se ha seleccionado una nueva imagen
-    let nuevaImagenInput = document.getElementById("nueva-imagen");
-    if (nuevaImagenInput.files.length > 0) {
-        productos[indice].imagen = nuevaImagenInput.files[0];
-    }
-
-    // Mostrar los productos actualizados en la tabla
+    productos[indice].imagen = document.getElementById("imagen").value;
     mostrarProductos();
 
     // Limpiar los campos del formulario
@@ -90,7 +80,7 @@ function editarProductoExistente(id) {
     document.getElementById("descripcion").value = "";
     document.getElementById("categoria").value = "";
     document.getElementById("precio").value = "";
-    document.getElementById("nueva-imagen").value = ""; // Limpiar el campo de selección de imagen
+    document.getElementById("imagen").value = "";
 
     // Cambiar el texto del botón de "Editar Producto" a "Agregar Producto"
     let botonAgregarEditar = document.getElementById("agregar-editar-btn");
@@ -134,9 +124,9 @@ function mostrarProductos() {
                         <td>${producto.descripcion}</td>
                         <td>${producto.categoria}</td>
                         <td>${producto.precio}</td>
-                        <td><img src="${URL.createObjectURL(producto.imagen)}" alt="Imagen de ${producto.nombre}" style="max-width: 100px;"></td>
-                        <td><button onclick="editarProducto(${producto.id})">Editar</button></td>
-                        <td><button onclick="eliminarProducto(${producto.id})">Eliminar</button></td>
+                        <td><img src="${producto.imagen}" alt="Imagen de ${producto.nombre}" style="max-width: 100px;"></td>
+                        <td><center><button onclick="editarProducto(${producto.id})">Editar</button><br><br>
+                        <button onclick="eliminarProducto(${producto.id})">Eliminar</button></center></td>
                     </tr>
                 `;
         tabla.innerHTML += fila;
