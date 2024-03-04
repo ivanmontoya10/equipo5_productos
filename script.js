@@ -37,6 +37,12 @@ function agregarProducto() {
     let precio = parseFloat(document.getElementById("precio").value);
     let imagenURL = document.getElementById("imagen").value;
 
+    // Obtener el último ID de los productos o 0 si no hay productos
+    let ultimoId = productos.length > 0 ? productos[productos.length - 1].id : 0;
+
+    // Incrementar el ID para el nuevo producto
+    let nuevoId = ultimoId + 1;
+
     // Crear objeto Producto y agregarlo al array de productos
     let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagenURL);
     productos.push(producto);
@@ -108,11 +114,12 @@ function eliminarProducto(id) {
 
 function mostrarProductos() {
     //Declaración de la tabla
-    let tabla = document.getElementById("tablaProductos");
+    let tabla = document.getElementById("tablaProductos"); 
 
     //Estructura de la tabla
     tabla.innerHTML = `
                 <tr>
+                    <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Categoría</th>
@@ -126,6 +133,7 @@ function mostrarProductos() {
     productos.forEach(producto => {
         let fila = `
                     <tr>
+                        <td>${producto.id}</td>
                         <td>${producto.nombre}</td>
                         <td>${producto.descripcion}</td>
                         <td>${producto.categoria}</td>
