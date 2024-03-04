@@ -37,12 +37,6 @@ function agregarProducto() {
     let precio = parseFloat(document.getElementById("precio").value);
     let imagenURL = document.getElementById("imagen").value;
 
-    // Obtener el último ID de los productos o 0 si no hay productos
-    let ultimoId = productos.length > 0 ? productos[productos.length - 1].id : 0;
-
-    // Incrementar el ID para el nuevo producto
-    let nuevoId = ultimoId + 1;
-
     // Crear objeto Producto y agregarlo al array de productos
     let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagenURL);
     productos.push(producto);
