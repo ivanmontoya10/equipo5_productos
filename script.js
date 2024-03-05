@@ -1,31 +1,3 @@
-//Clases
-class Imagen {
-    constructor(id, url, producto) {
-        this.id = id;
-        this.url = url;
-        this.producto = producto;
-    }
-}
-
-class Producto {
-    constructor(id, nombre, descripcion, categoria, precio, imagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.categoria = categoria;
-        this.precio = precio;
-        this.imagen = imagen;
-    }
-}
-
-class Categoria {
-    constructor(id, nombre, subcategoria) {
-        this.id = id;
-        this.nombre = nombre;
-        this.subcategoria = subcategoria;
-    }
-}
-
 //Creación del arreglo
 let productos = [];
 
@@ -37,8 +9,20 @@ function agregarProducto() {
     let precio = parseFloat(document.getElementById("precio").value);
     let imagenURL = document.getElementById("imagen").value;
 
+    if (nombre === '' || descripcion === '' || categoria === '' || isNaN(precio) || imagenURL === '') {
+        alert('Por favor, complete todos los campos.');
+        return; // Salir de la función si hay campos vacíos
+    }
+
     // Crear objeto Producto y agregarlo al array de productos
-    let producto = new Producto(productos.length + 1, nombre, descripcion, categoria, precio, imagenURL);
+    let producto = {
+        id: productos.length + 1,
+        nombre: nombre,
+        descripcion: descripcion,
+        categoria: categoria,
+        precio: precio,
+        imagen: imagenURL
+    };
     productos.push(producto);
      
     // Mostrar el producto en la tabla y limpiar los campos
