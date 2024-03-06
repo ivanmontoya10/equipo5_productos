@@ -3,6 +3,7 @@ let productos = [];
 
 function agregarProducto() {
     //Declaración de los campos
+    let id = document.getElementById("id").value;
     let nombre = document.getElementById("nombre").value;
     let descripcion = document.getElementById("descripcion").value;
     let categoria = document.getElementById("categoria").value;
@@ -16,7 +17,7 @@ function agregarProducto() {
 
     // Crear objeto Producto y agregarlo al array de productos
     let producto = {
-        id: productos.length + 1,
+        id: id,
         nombre: nombre,
         descripcion: descripcion,
         categoria: categoria,
@@ -24,7 +25,7 @@ function agregarProducto() {
         imagen: imagenURL
     };
     productos.push(producto);
-     
+
     // Mostrar el producto en la tabla y limpiar los campos
     mostrarProductos();
     limpiarCampos();
@@ -54,7 +55,7 @@ function editarProducto(id) {
     botonAgregarEditar.innerText = "Editar Producto";
 
     //Botón que llama a la función editarProducto()
-    botonAgregarEditar.onclick = function() {
+    botonAgregarEditar.onclick = function () {
         editarProductoExistente(id);
     };
 }
@@ -69,7 +70,7 @@ function editarProductoExistente(id) {
     productos[indice].categoria = document.getElementById("categoria").value;
     productos[indice].precio = parseFloat(document.getElementById("precio").value);
     productos[indice].imagen = document.getElementById("imagen").value;
-    
+
     // Mostrar el producto en la tabla y limpiar los campos
     mostrarProductos();
     limpiarCampos();
@@ -79,7 +80,7 @@ function editarProductoExistente(id) {
     botonAgregarEditar.innerText = "Agregar Producto";
 
     // Cambiar el evento del botón de "Editar Producto" para que llame a la función agregarProducto()
-    botonAgregarEditar.onclick = function() {
+    botonAgregarEditar.onclick = function () {
         agregarProducto();
     };
 }
@@ -92,7 +93,7 @@ function eliminarProducto(id) {
 
 function mostrarProductos() {
     //Declaración de la tabla
-    let tabla = document.getElementById("tablaProductos"); 
+    let tabla = document.getElementById("tablaProductos");
 
     //Estructura de la tabla
     tabla.innerHTML = `
@@ -122,6 +123,6 @@ function mostrarProductos() {
                     </tr>
                 `;
         //Se van agregando productos y aumenta la cantidad de filas de la tabla
-        tabla.innerHTML += fila; 
+        tabla.innerHTML += fila;
     });
 }
